@@ -52,12 +52,12 @@ function resolveNavigationHref(href, standalone) {
 }
 
 const pillarDetails = [
-  { name: 'Wiedza', description: 'Kompetencje i praktyka.', Icon: BookOpenText },
+  { name: 'Wiedza', description: 'Kompetencje i doświadczenie.', Icon: BookOpenText },
   { name: 'Technologia', description: 'Narzędzia i infrastruktura.', Icon: Cpu },
-  { name: 'Biznes', description: 'Wdrożenia i skala.', Icon: Briefcase },
-  { name: 'Nauka', description: 'Badania i transfer.', Icon: Flask },
-  { name: 'Administracja', description: 'Warunki i koordynacja.', Icon: Buildings },
-  { name: 'Kapitał', description: 'Finansowanie wzrostu.', Icon: Coins },
+  { name: 'Biznes', description: 'Skalowanie i wdrożenia.', Icon: Briefcase },
+  { name: 'Nauka', description: 'Badania i transfer wiedzy.', Icon: Flask },
+  { name: 'Administracja', description: 'Sprawne instytucje publiczne.', Icon: Buildings },
+  { name: 'Kapitał', description: 'Finansowanie rozwoju.', Icon: Coins },
 ];
 
 const pillars = pillarDetails.map(({ name }) => name);
@@ -263,17 +263,13 @@ function Hero() {
 
 function PillarNetwork() {
   return (
-    <div className="vision-network" data-reveal="draw" aria-label="Sześć filarów wizji ACCELERATE POLAND">
-      <div className="vision-core">
-        <img src="/assets/accelerate-poland-logo.svg" alt="" aria-hidden="true" />
-        <span>RDZEŃ PROGRAMU</span>
-      </div>
-      {pillarDetails.map(({ name, description }, index) => (
-        <article className={`vision-pillar vision-pillar--${index + 1}`} key={name}>
-          <span>0{index + 1}</span>
-          <h3>{name}</h3>
-          <p>{description}</p>
-        </article>
+    <div className="pillar-network" data-reveal="draw" aria-label="Sześć filarów inicjatywy">
+      <div className="pillar-network__hub"><span>ACCELERATE</span><strong>POLAND</strong></div>
+      {pillarDetails.map(({ name, Icon }, index) => (
+        <div className={`pillar pillar--${index + 1}`} key={name}>
+          <span className="pillar__index">0{index + 1}</span>
+          <div className="pillar__identity"><Icon weight="regular" aria-hidden="true" /><strong>{name}</strong></div>
+        </div>
       ))}
     </div>
   );
