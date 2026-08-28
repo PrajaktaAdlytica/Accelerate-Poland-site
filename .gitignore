@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+.vercel/
+*.log
+
+# Local design-review evidence; keep the production repository focused.
+implementation-*.png
+reference-*.png
+qa-comparison-*.png
+

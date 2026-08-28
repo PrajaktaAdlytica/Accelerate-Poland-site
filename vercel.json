@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
+  "rewrites": [
+    { "source": "/inicjatywa", "destination": "/index.html" },
+    { "source": "/programy", "destination": "/index.html" },
+    { "source": "/akceleracja", "destination": "/index.html" },
+    { "source": "/partnerzy", "destination": "/index.html" }
+  ]
+}
