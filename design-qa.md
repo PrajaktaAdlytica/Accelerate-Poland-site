@@ -137,3 +137,12 @@ passed
 - Added a reduced-motion-safe count-up for the qualified “60+” ecosystem figure. Technology-company references are shown as text, not as unverified logos or implied endorsements.
 - Preserved the established white/red/graphite identity, bottom-to-top graphite card fills, alternating directional reveals and complete tablet/mobile layouts.
 - Local `/partnerzy` response: 200. Production build and Sites packaging: passed. Sites tests: 4/4 passed.
+
+## Approved six-pillar master — 28 August 2026
+
+- Replaced the shared light six-pillar matrix with the approved graphic-language-pack master from the reference project at port 4180.
+- The revised component uses a dark institutional grid, a full-height Polish-red programme core and three paired pillar rows.
+- Pillar labels and descriptors now match the approved master: Wiedza, Technologia, Biznes, Nauka, Administracja and Kapitał.
+- The component is shared by the homepage and `/inicjatywa`, with two-column tablet and single-column mobile adaptations.
+- Production build and Sites packaging: passed. Sites tests: 4/4 passed.
+- Final result: passed.

@@ -22,6 +22,7 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 - At tablet widths, pillar labels must remain fully readable and must not sit beneath the central ACCELERATE POLAND badge.
 - Numeric evidence labels should explain their meaning directly; avoid ambiguous ranges such as “01—06”.
 - Present the six-pillar model as six named, icon-supported areas—Wiedza, Technologia, Biznes, Nauka, Administracja and Kapitał—rather than as an unexplained oversized number.
+- Use the approved graphic-language-pack master for the shared six-pillar visual: a dark institutional grid, a full-height red programme core, and three paired rows containing the six named pillars with their short descriptors. Keep the same master on the homepage and `/inicjatywa`.
 - Programme icons use a muted grey resting state and return to full black on hover or keyboard focus.
 - Desktop navigation uses restrained Phosphor line icons that reveal before Inicjatywa, Programy, Akceleracja, Granty and Partnerzy on hover or keyboard focus.
 - Footer navigation mirrors the line-icon reveal for all six links, including Kontakt, and changes the icon and label to red on hover or keyboard focus.
