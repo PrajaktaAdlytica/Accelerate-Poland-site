@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowRight,
@@ -19,7 +19,6 @@ import {
   LinkedinLogo,
   List,
   HandCoins,
-  MagnifyingGlass,
   Network,
   RocketLaunch,
   SquaresFour,
@@ -163,14 +162,6 @@ const audiences = [
   },
 ];
 
-const grants = [
-  { id: 'AP-001', title: 'Rozwój technologii cyfrowych', audience: 'Przedsiębiorstwa', area: 'Technologia', region: 'Polska', tag: 'Cyfryzacja' },
-  { id: 'AP-002', title: 'Badania, rozwój i komercjalizacja', audience: 'Nauka i biznes', area: 'B+R', region: 'UE', tag: 'Badania' },
-  { id: 'AP-003', title: 'Transformacja cyfrowa administracji', audience: 'Administracja', area: 'Usługi publiczne', region: 'Polska', tag: 'GovTech' },
-  { id: 'AP-004', title: 'Akceleracja rozwiązań przemysłowych', audience: 'Startupy', area: 'Przemysł 4.0', region: 'Polska', tag: 'Akceleracja' },
-  { id: 'AP-005', title: 'Skalowanie innowacyjnych produktów', audience: 'MŚP i startupy', area: 'Ekspansja', region: 'UE', tag: 'Skalowanie' },
-];
-
 function Brand({ inverse = false }) {
   return <img className={inverse ? 'brand brand--inverse' : 'brand'} src="/assets/accelerate-poland-logo.svg" alt="ACCELERATE POLAND" />;
 }
@@ -188,6 +179,18 @@ function ArrowLink({ href, children, inverse = false, className = '', straightRe
 }
 
 function Header({ open, setOpen, hidden, active, standalone = false }) {
+  const handleContactClick = (event) => {
+    setOpen(false);
+    if (window.location.pathname !== '/') return;
+
+    const contactForm = document.getElementById('kontakt');
+    if (!contactForm) return;
+
+    event.preventDefault();
+    window.history.pushState(null, '', '#kontakt');
+    contactForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <header className={`site-header ${hidden ? 'site-header--hidden' : ''} ${open ? 'site-header--open' : ''}`}>
       <a href={standalone ? '/#top' : '#top'} className="brand-link" aria-label="ACCELERATE POLAND — strona główna" onClick={() => setOpen(false)}><Brand /></a>
@@ -201,14 +204,14 @@ function Header({ open, setOpen, hidden, active, standalone = false }) {
       </nav>
       <div className="header-actions">
         <button type="button" className="language-switch" aria-label="Zmień język"><strong>PL</strong><span>/</span><span>EN</span></button>
-        <a className="header-contact" href={standalone ? '/#kontakt' : '#kontakt'}><span>Kontakt</span><ArrowUpRight weight="bold" /></a>
+        <a className="header-contact" href="/#kontakt" onClick={handleContactClick}><span>Kontakt</span><ArrowUpRight weight="bold" /></a>
         <button className="menu-toggle" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}>{open ? <X weight="bold" /> : <List weight="bold" />}</button>
       </div>
       <div className="mobile-menu" id="mobile-menu" aria-hidden={!open}>
         <div className="mobile-menu__meta"><span>PL / EN</span><span>MENU — 2026</span></div>
         <nav aria-label="Mobilna nawigacja">
           {navigation.map((item, index) => <a href={resolveNavigationHref(item.href, standalone)} key={item.href} onClick={() => setOpen(false)}><span>0{index + 1}</span>{item.label}<ArrowRight /></a>)}
-          <a href={standalone ? '/#kontakt' : '#kontakt'} onClick={() => setOpen(false)}><span>06</span>Kontakt<ArrowRight /></a>
+          <a href="/#kontakt" onClick={handleContactClick}><span>06</span>Kontakt<ArrowRight /></a>
         </nav>
       </div>
     </header>
@@ -241,18 +244,14 @@ function Hero() {
           <div className="mosaic-card__copy"><span>01 / ZASIĘG</span><strong>Cała Polska</strong><small>Jedna platforma współpracy</small></div>
           <span className="mosaic-card__action">Poznaj obszar <ArrowUpRight /></span>
         </a>
-        <a className="mosaic-card mosaic-card--photo" href="#partnerzy">
-          <img src="/assets/photos/01-warsaw-business.jpg" alt="Plac Europejski w Warszawie" />
-          <div className="mosaic-card__copy mosaic-card__copy--photo"><span>02 / WARSZAWA</span><strong>Rozwój bez granic</strong></div>
-        </a>
         <a className="mosaic-card mosaic-card--metric" href="#partnerzy">
           <Network weight="thin" aria-hidden="true" />
-          <div className="mosaic-card__copy"><span>03 / EKOSYSTEM</span><strong>60+</strong><small>firm technologicznych</small></div>
+          <div className="mosaic-card__copy"><span>02 / EKOSYSTEM</span><strong>60+</strong><small>firm technologicznych</small></div>
           <span className="mosaic-card__action">Zobacz ekosystem <ArrowUpRight /></span>
         </a>
         <a className="mosaic-card mosaic-card--programmes" href="#programy">
           <img src="/assets/icons/programmes/02-innovation-nation.svg" alt="" aria-hidden="true" />
-          <div className="mosaic-card__copy"><span>04 / PROGRAMY</span><strong>4 programy</strong><small>Jeden kierunek rozwoju</small></div>
+          <div className="mosaic-card__copy"><span>03 / PROGRAMY</span><strong>4 programy</strong><small>Jeden kierunek rozwoju</small></div>
           <span className="mosaic-card__action">Zobacz programy <ArrowUpRight /></span>
         </a>
       </div>
@@ -264,7 +263,6 @@ function Hero() {
 function PillarNetwork() {
   return (
     <div className="pillar-network" data-reveal="draw" aria-label="Sześć filarów inicjatywy">
-      <div className="pillar-network__hub"><span>ACCELERATE</span><strong>POLAND</strong></div>
       {pillarDetails.map(({ name, Icon }, index) => (
         <div className={`pillar pillar--${index + 1}`} key={name}>
           <span className="pillar__index">0{index + 1}</span>
@@ -304,9 +302,8 @@ function Initiative() {
         <p>ACCELERATE POLAND tworzy warunki do współpracy pomiędzy podmiotami, które dysponują różnymi elementami tego potencjału. Ich połączenie pozwala odpowiadać na rzeczywiste wyzwania i zwiększać konkurencyjność polskiej gospodarki.</p>
         <ArrowLink href="#programy">Zobacz programy</ArrowLink>
       </div>
-      <PillarNetwork />
       <div className="initiative-evidence" data-reveal="up">
-        <figure><img src="/assets/photos/03-katowice-hackathon.jpg" alt="Uczestnicy hackathonu technologicznego w Katowicach" /><figcaption><span>Katowice / Technologia</span><strong>Współpraca, która prowadzi do działania.</strong></figcaption></figure>
+        <figure><img src="/assets/photos/generated-concepts/14-innovation-workshop.png" alt="Młody zespół pracujący nad rozwiązaniem cyfrowym w nowoczesnym biurze" /><figcaption><strong>Współpraca, która prowadzi do działania.</strong></figcaption></figure>
         <PillarDirectory />
       </div>
     </section>
@@ -346,7 +343,7 @@ function InitiativePage() {
       <section className="initiative-page-mission section" id="misja">
         <div data-reveal="left"><SectionLabel number="02">Misja</SectionLabel><h2>Od wiedzy<br />do <em>wdrożenia.</em></h2></div>
         <div className="initiative-page-mission__copy" data-reveal="right">
-          <p className="lead">Celem inicjatywy jest wspieranie wykorzystania nowych technologii — w szczególności sztucznej inteligencji i rozwiązań cyfrowych — w sposób odpowiadający na rzeczywiste potrzeby polskiej gospodarki, administracji i społeczeństwa.</p>
+          <p className="lead">Celem inicjatywy jest wspieranie wykorzystania nowych technologii, w szczególności sztucznej inteligencji i rozwiązań cyfrowych, w sposób odpowiadający na rzeczywiste potrzeby polskiej gospodarki, administracji i społeczeństwa.</p>
           <p>ACCELERATE POLAND koncentruje się na budowaniu kompetencji, relacji i możliwości, które pozwalają przechodzić od wiedzy o nowych technologiach do ich praktycznego wykorzystania.</p>
           <div className="initiative-page-mission__statement"><span>CEL STRATEGICZNY</span><strong>Technologia, która tworzy realną wartość dla Polski.</strong></div>
         </div>
@@ -365,11 +362,11 @@ function InitiativePage() {
       </section>
 
       <section className="initiative-page-reach section" id="polska">
-        <div className="initiative-page-reach__heading" data-reveal="left"><SectionLabel number="05">Ogólnopolski zasięg</SectionLabel><h2>Polska jako<br /><em>wspólny kontekst.</em></h2><p>Regionalne działania są częścią ogólnopolskiej misji — od administracji i nauki po przemysł, technologie oraz przedsiębiorczość.</p></div>
+        <div className="initiative-page-reach__heading" data-reveal="left"><SectionLabel number="05">Ogólnopolski zasięg</SectionLabel><h2>Polska jako<br /><em>wspólny kontekst.</em></h2><p>Regionalne działania są częścią ogólnopolskiej misji, od administracji i nauki po przemysł, technologie oraz przedsiębiorczość.</p></div>
         <div className="initiative-page-reach__mosaic" data-reveal="right">
-          <figure className="initiative-page-reach__photo initiative-page-reach__photo--main"><img src="/assets/photos/01-warsaw-business.jpg" alt="Nowoczesne otoczenie biznesowe w Warszawie" /><figcaption><span>WARSZAWA</span><strong>Biznes i administracja</strong></figcaption></figure>
-          <figure className="initiative-page-reach__photo"><img src="/assets/photos/03-katowice-hackathon.jpg" alt="Uczestnicy wydarzenia technologicznego w Katowicach" /><figcaption><span>KATOWICE</span><strong>Technologia i współpraca</strong></figcaption></figure>
-          <figure className="initiative-page-reach__photo"><img src="/assets/photos/05-pesa-production.jpg" alt="Nowoczesna produkcja przemysłowa w Polsce" /><figcaption><span>POLSKA</span><strong>Przemysł i wdrożenia</strong></figcaption></figure>
+          <figure className="initiative-page-reach__photo initiative-page-reach__photo--main"><img src="/assets/photos/01-warsaw-business.jpg" alt="Nowoczesne otoczenie biznesowe w Warszawie" /><figcaption><strong>Biznes i administracja</strong></figcaption></figure>
+          <figure className="initiative-page-reach__photo"><img src="/assets/photos/generated-concepts/16-technology-panel.png" alt="Panel dyskusyjny poświęcony technologii i współpracy" /><figcaption><strong>Technologia i współpraca</strong></figcaption></figure>
+          <figure className="initiative-page-reach__photo"><img src="/assets/photos/generated-concepts/15-warsaw-digital-mobility.png" alt="Nowoczesny tramwaj w warszawskiej dzielnicy biznesowej" /><figcaption><strong>Przemysł i wdrożenia</strong></figcaption></figure>
         </div>
       </section>
 
@@ -394,7 +391,7 @@ function Programmes() {
             <div className="programme-card__top"><span>{programme.index}</span><ArrowUpRight weight="bold" /></div>
             <img src={programme.icon} alt="" aria-hidden="true" />
             <div className="programme-card__rest"><h3>{programme.name}</h3><p>{programme.strapline}</p></div>
-            <div className="programme-card__panel"><p>{programme.copy}</p><ArrowLink href="#kontakt" inverse>Poznaj program</ArrowLink></div>
+            <div className="programme-card__panel"><p>{programme.copy}</p><ArrowLink href="/#kontakt" inverse>Poznaj program</ArrowLink></div>
           </article>
         ))}
       </div>
@@ -461,7 +458,7 @@ function ProgrammesPage() {
       </section>
 
       <section className="programmes-page-cta section" id="dalej">
-        <div data-reveal="left"><SectionLabel number="04" light>Następny krok</SectionLabel><h2>Znajdź program<br />dla swojej <em>ambicji.</em></h2></div>
+        <div data-reveal="left"><SectionLabel number="04" light>Następny krok</SectionLabel><h2>Znajdź program<br />dla swojej <em>firmy.</em></h2></div>
         <div className="programmes-page-cta__actions" data-reveal="right"><p>Porozmawiaj z zespołem ACCELERATE POLAND o programie najlepiej dopasowanym do Twojej organizacji lub projektu.</p><div><a className="primary-cta" href="/#kontakt"><span>Skontaktuj się</span><ArrowRight weight="bold" /></a><a className="secondary-cta" href="/#granty"><span>Wybierz granty</span><ArrowRight weight="bold" /></a></div></div>
       </section>
     </>
@@ -518,8 +515,8 @@ function AccelerationPage() {
           </div>
         </div>
         <figure className="acceleration-page-foundation__photo" data-reveal="right">
-          <img src="/assets/photos/03-katowice-hackathon.jpg" alt="Uczestnicy warsztatu technologicznego w Katowicach pracujący przy laptopach" />
-          <figcaption><span>KATOWICE / TECHNOLOGIA</span><strong>Praca skoncentrowana na konkretnych kamieniach milowych.</strong></figcaption>
+          <img src="/assets/photos/generated-concepts/14-innovation-workshop.png" alt="Zespół rozwijający cyfrowe rozwiązanie podczas nowoczesnego warsztatu" />
+          <figcaption><strong>Praca skoncentrowana na konkretnych kamieniach milowych.</strong></figcaption>
         </figure>
       </section>
 
@@ -559,7 +556,7 @@ function AccelerationPage() {
 
       <section className="acceleration-page-cta section" id="dalej">
         <div data-reveal="left"><SectionLabel number="05" light>Następny krok</SectionLabel><h2>Znajdź wsparcie<br />dla swojego <em>projektu.</em></h2></div>
-        <div className="acceleration-page-cta__actions" data-reveal="right"><p>Przejdź do katalogu grantów i wybierz możliwość wsparcia dopasowaną do etapu rozwoju Twojego przedsięwzięcia.</p><div><a className="primary-cta" href="/#granty"><span>Wybierz grant na akcelerację</span><ArrowRight weight="bold" /></a><a className="secondary-cta" href="/#kontakt"><span>Skontaktuj się</span><ArrowRight weight="bold" /></a></div></div>
+        <div className="acceleration-page-cta__actions" data-reveal="right"><p>Przejdź do katalogu grantów i wybierz możliwość wsparcia dopasowaną do etapu rozwoju Twojego przedsięwzięcia.</p><div><a className="primary-cta" href="/#granty"><span>Wybierz granty</span><ArrowRight weight="bold" /></a><a className="secondary-cta" href="/#kontakt"><span>Skontaktuj się</span><ArrowRight weight="bold" /></a></div></div>
       </section>
     </>
   );
@@ -582,7 +579,7 @@ function Acceleration() {
         <p className="v2v-mark"><span>V2V</span> / FROM VISION TO VENTURE</p>
         <h2>Od wizji do<br />gotowości<br /><em>inwestycyjnej.</em></h2>
         <p>Model ogranicza zbędne bariery procesowe i koncentruje się na działaniach, które skracają drogę przedsiębiorstwa do rynku, skalowania i kapitału.</p>
-        <ArrowLink href="#granty" inverse>Wybierz grant na akcelerację</ArrowLink>
+        <ArrowLink href="#granty" inverse>Wybierz granty</ArrowLink>
       </div>
       <div className="stage-system" data-reveal="up">
         <div className="stage-tabs" role="tablist" aria-label="Etapy modelu V2V">
@@ -616,7 +613,7 @@ function Audiences() {
             <div className="audience-card__index">{audience.index}</div>
             <img src={audience.icon} alt="" aria-hidden="true" />
             <div><h3>{audience.name}</h3><strong>{audience.strapline}</strong><p>{audience.copy}</p></div>
-            <ArrowLink href="#kontakt">Poznaj możliwości</ArrowLink>
+            <ArrowLink href="/#kontakt">Poznaj możliwości</ArrowLink>
           </article>
         ))}
       </div>
@@ -625,33 +622,21 @@ function Audiences() {
 }
 
 function Grants() {
-  const [query, setQuery] = useState('');
-  const [filter, setFilter] = useState('Wszystkie');
-  const filters = ['Wszystkie', 'Technologia', 'B+R', 'Usługi publiczne', 'Przemysł 4.0'];
-  const filtered = useMemo(() => grants.filter((grant) => {
-    const matchesFilter = filter === 'Wszystkie' || grant.area === filter;
-    const haystack = `${grant.title} ${grant.audience} ${grant.area} ${grant.region} ${grant.tag}`.toLowerCase();
-    return matchesFilter && haystack.includes(query.trim().toLowerCase());
-  }), [filter, query]);
-
   return (
     <section className="grants section" id="granty">
       <div className="grants-photo" data-reveal="left">
-        <img src="/assets/photos/02-university-research.jpg" alt="Młoda badaczka w laboratorium Uniwersytetu Warszawskiego" />
-        <div className="grants-photo__label"><span>Warszawa / Nauka / B+R</span><strong>Od potencjału do finansowania.</strong></div>
+        <img src="/assets/photos/generated-concepts/16-technology-panel.png" alt="Panel poświęcony technologiom, innowacjom i możliwościom rozwoju" />
+        <div className="grants-photo__label"><strong>Od potencjału do finansowania.</strong></div>
       </div>
       <div className="grants-content" data-reveal="right">
         <SectionLabel number="05">Granty</SectionLabel>
-        <div className="grants-title"><h2>Znajdź możliwości<br /><em>wsparcia.</em></h2><span className="prototype-badge">KATALOG DEMONSTRACYJNY</span></div>
+        <div className="grants-title"><h2>Znajdź możliwości<br /><em>wsparcia.</em></h2></div>
         <p>Dostęp do właściwie dobranych źródeł finansowania może ułatwiać realizację projektów technologicznych, działalność badawczo-rozwojową oraz skalowanie przedsiębiorstw.</p>
-        <label className="grant-search"><MagnifyingGlass weight="bold" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Wyszukaj grant, technologię lub odbiorcę" /><kbd>⌘ K</kbd></label>
-        <div className="grant-filters" role="group" aria-label="Filtry grantów">{filters.map((item) => <button type="button" className={filter === item ? 'is-active' : ''} onClick={() => setFilter(item)} key={item}>{item}</button>)}</div>
-        <div className="grant-results" aria-live="polite">
-          <div className="grant-results__head"><span>{filtered.length} wyników</span><span>Aktualizacja bazy / CMS</span></div>
-          {filtered.map((grant) => <a className="grant-row" href="#kontakt" key={grant.id}><span className="grant-id">{grant.id}</span><div><strong>{grant.title}</strong><small>{grant.audience} · {grant.region}</small></div><span className="grant-tag">{grant.tag}</span><ArrowUpRight weight="bold" /></a>)}
-          {!filtered.length && <div className="no-results"><span>Brak wyników</span><p>Spróbuj szerszej frazy lub wybierz inny obszar.</p></div>}
+        <div className="grants-contact">
+          <span>POSZUKUJESZ FINANSOWANIA?</span>
+          <p>Opisz swój projekt lub obszar rozwoju. Pomożemy wskazać możliwości wsparcia odpowiadające Twoim potrzebom.</p>
+          <ArrowLink href="/#kontakt" straightRest>Zapytaj o grant</ArrowLink>
         </div>
-        <p className="grants-note">Docelowy katalog zostanie połączony z bazą danych / CMS zgodnie z rozwiązaniem wykorzystanym w OdraVenture.</p>
       </div>
     </section>
   );
@@ -748,7 +733,6 @@ function PartnersPage() {
         <div className="partners-page-hero__visual" data-hero="mosaic" aria-label="Sieć czterech kategorii partnerów ACCELERATE POLAND">
           <div className="partners-page-hero__network">
             {categories.map(({ index, title, Icon }) => <article key={index}><span>{index}</span><Icon weight="regular" aria-hidden="true" /><strong>{title}</strong></article>)}
-            <div className="partners-page-hero__hub"><span>ACCELERATE</span><strong>POLAND</strong><small>PARTNER NETWORK</small></div>
           </div>
           <p className="partners-page-hero__caption"><span>POLSKA</span><span>×</span><span>ŚWIAT</span></p>
         </div>
@@ -756,15 +740,14 @@ function PartnersPage() {
 
       <section className="partners-page-intro section" id="ekosystem">
         <figure className="partners-page-intro__photo" data-reveal="left">
-          <img src="/assets/photos/06-gdansk-business.jpg" alt="Nowoczesne środowisko biznesowe w Gdańsku" />
-          <figcaption><span>GDAŃSK / BIZNES</span><strong>Współpraca pomiędzy polskim potencjałem a międzynarodową technologią.</strong></figcaption>
+          <img src="/assets/photos/generated-infrastructure-v2/07-technology-conference.png" alt="Międzynarodowa konferencja technologiczna i ekosystem współpracy" />
+          <div className="partners-page-intro__overlay" data-reveal="right">
+            <SectionLabel number="02" light>Wspólna platforma</SectionLabel>
+            <h2>Połączenia, które<br /><em>tworzą możliwości.</em></h2>
+            <p>Ekosystem łączy wiedzę, technologię, doświadczenie biznesowe, zasięg oraz zdolność do rozwijania innowacyjnych przedsięwzięć.</p>
+            <div className="partners-page-intro__stat"><strong aria-label="Ponad 60 międzynarodowych firm technologicznych"><span ref={countRef} aria-hidden="true">0</span><small aria-hidden="true">+</small></strong><p>międzynarodowych firm technologicznych wskazywanych w rozwijanym ekosystemie</p></div>
+          </div>
         </figure>
-        <div className="partners-page-intro__copy" data-reveal="right">
-          <SectionLabel number="02">Wspólna platforma</SectionLabel>
-          <h2>Połączenia, które<br /><em>tworzą możliwości.</em></h2>
-          <p>Ekosystem łączy wiedzę, technologię, doświadczenie biznesowe, zasięg oraz zdolność do rozwijania innowacyjnych przedsięwzięć.</p>
-          <div className="partners-page-intro__stat"><strong aria-label="Ponad 60 międzynarodowych firm technologicznych"><span ref={countRef} aria-hidden="true">0</span><small aria-hidden="true">+</small></strong><p>międzynarodowych firm technologicznych wskazywanych w rozwijanym ekosystemie</p></div>
-        </div>
       </section>
 
       <section className="partners-page-categories section" id="kategorie">
@@ -784,21 +767,9 @@ function PartnersPage() {
         </div>
       </section>
 
-      <section className="partners-page-reach section" id="zasieg">
-        <div className="partners-page-reach__copy" data-reveal="left">
-          <SectionLabel number="04">Zasięg technologiczny</SectionLabel>
-          <h2>Międzynarodowe<br /><em>połączenia.</em></h2>
-          <p>W materiałach wskazywany jest ekosystem obejmujący ponad 60 międzynarodowych firm technologicznych, a także partnerów merytorycznych i organizacje gospodarcze.</p>
-        </div>
-        <div className="partners-page-reach__field" data-reveal="right">
-          <span>GOOGLE</span><span>AWS</span><span>MICROSOFT</span><span>IBM</span><span>ANTHROPIC</span><span>NVIDIA</span>
-          <div><Network weight="thin" aria-hidden="true" /><p>Technologia · wiedza · biznes · zasięg</p></div>
-        </div>
-      </section>
-
       <section className="partners-page-cta section" id="dalej">
-        <div data-reveal="left"><SectionLabel number="05" light>Współpraca</SectionLabel><h2>Dołącz do<br />ekosystemu <em>partnerów.</em></h2></div>
-        <div className="partners-page-cta__actions" data-reveal="right"><p>Porozmawiaj z zespołem ACCELERATE POLAND o możliwościach współpracy technologicznej, merytorycznej, gospodarczej lub medialnej.</p><div><a className="primary-cta" href="/#kontakt"><span>Skontaktuj się</span><ArrowRight weight="bold" /></a><a className="secondary-cta" href="/inicjatywa"><span>Poznaj inicjatywę</span><ArrowRight weight="bold" /></a></div></div>
+        <div data-reveal="left"><SectionLabel number="04" light>Współpraca</SectionLabel><h2>Dołącz do<br />ekosystemu <em>partnerów.</em></h2></div>
+        <div className="partners-page-cta__actions" data-reveal="right"><p>Porozmawiaj z zespołem ACCELERATE POLAND o możliwościach współpracy technologicznej, merytorycznej, gospodarczej lub medialnej.</p><div><a className="primary-cta" href="/#kontakt"><span>Skontaktuj się</span><ArrowRight weight="bold" /></a><a className="secondary-cta" href="/#inicjatywa"><span>Poznaj inicjatywę</span><ArrowRight weight="bold" /></a></div></div>
       </section>
     </>
   );
@@ -830,12 +801,12 @@ function Contact() {
 function Footer({ standalone = false }) {
   return (
     <footer>
-      <div className="footer-main"><div><Brand inverse /><p>Inicjatywa na rzecz cyfrowego rozwoju Polski</p></div><div className="footer-statement">Łączymy ludzi, organizacje, technologię, wiedzę i kapitał, aby tworzyć warunki dla szybszego rozwoju Polski.</div></div>
+      <div className="footer-main"><div className="footer-brand-card"><Brand /></div><div className="footer-statement">Łączymy ludzi, organizacje, technologię, wiedzę i kapitał, aby tworzyć warunki dla szybszego rozwoju Polski.</div></div>
       <div className="footer-links">
         <div className="footer-nav">{footerNavigation.map(({ label, href, Icon }) => <a href={resolveNavigationHref(href, standalone)} key={href}><span className="footer-nav__icon" aria-hidden="true"><Icon weight="regular" /></span><span>{label}</span></a>)}</div>
         <div className="socials"><a href="https://www.linkedin.com" aria-label="LinkedIn"><LinkedinLogo weight="fill" /></a><a href="https://www.facebook.com" aria-label="Facebook"><FacebookLogo weight="fill" /></a><a href="https://www.instagram.com" aria-label="Instagram"><InstagramLogo /></a></div>
       </div>
-      <div className="footer-legal"><span>© 2026 ACCELERATE POLAND</span><span>Polityka prywatności</span><span>Projekt w przygotowaniu</span></div>
+      <div className="footer-legal"><span>© 2026 ACCELERATE POLAND</span><span>Inicjatywa na rzecz cyfrowego rozwoju Polski</span></div>
     </footer>
   );
 }
@@ -928,6 +899,20 @@ export function App() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => { observer.disconnect(); window.removeEventListener('scroll', onScroll); };
   }, [isInitiativePage, isProgrammesPage, isAccelerationPage, isPartnersPage, isStandalonePage]);
+
+  useEffect(() => {
+    if (!window.location.hash) return undefined;
+
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const scrollToTarget = window.setTimeout(() => {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      ScrollTrigger.refresh();
+      target.scrollIntoView({ block: 'start' });
+    }, 120);
+
+    return () => window.clearTimeout(scrollToTarget);
+  }, [isStandalonePage]);
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen);
