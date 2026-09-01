@@ -657,8 +657,10 @@ footer { padding: 0; color: white; background: var(--ink); }
 .footer-nav a:hover, .footer-nav a:focus-visible { color: #ff4b53; }
 .footer-nav a:hover .footer-nav__icon, .footer-nav a:focus-visible .footer-nav__icon { width: 15px; margin-right: 7px; opacity: 1; transform: none; }
 .socials { display: flex; gap: 8px; }
-.socials a { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #67686b; transition: color .2s ease, background .2s ease; }
+.socials a,
+.socials__placeholder { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #67686b; transition: color .2s ease, background .2s ease; }
 .socials a:hover { color: var(--ink); background: white; }
+.socials__placeholder { color: #8b8c8f; cursor: default; }
 .socials svg { width: 18px; height: 18px; }
 .footer-legal { padding: 24px var(--page-x) 26px; display: flex; justify-content: space-between; gap: 28px; color: rgba(255,255,255,.45); font-family: 'IBM Plex Mono AP', monospace; font-size: 8px; text-transform: uppercase; }
 .footer-legal span:last-child { text-align: right; }

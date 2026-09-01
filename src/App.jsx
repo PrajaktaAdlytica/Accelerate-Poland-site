@@ -804,7 +804,22 @@ function Footer({ standalone = false }) {
       <div className="footer-main"><div className="footer-brand-card"><Brand /></div><div className="footer-statement">Łączymy ludzi, organizacje, technologię, wiedzę i kapitał, aby tworzyć warunki dla szybszego rozwoju Polski.</div></div>
       <div className="footer-links">
         <div className="footer-nav">{footerNavigation.map(({ label, href, Icon }) => <a href={resolveNavigationHref(href, standalone)} key={href}><span className="footer-nav__icon" aria-hidden="true"><Icon weight="regular" /></span><span>{label}</span></a>)}</div>
-        <div className="socials"><a href="https://www.linkedin.com" aria-label="LinkedIn"><LinkedinLogo weight="fill" /></a><a href="https://www.facebook.com" aria-label="Facebook"><FacebookLogo weight="fill" /></a><a href="https://www.instagram.com" aria-label="Instagram"><InstagramLogo /></a></div>
+        <div className="socials">
+          <a
+            href="https://www.linkedin.com/company/accelerate-poland/?viewAsMember=true"
+            aria-label="ACCELERATE POLAND na LinkedIn"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <LinkedinLogo weight="fill" />
+          </a>
+          <span className="socials__placeholder" aria-label="Facebook — profil wkrótce" role="img">
+            <FacebookLogo weight="fill" />
+          </span>
+          <span className="socials__placeholder" aria-label="Instagram — profil wkrótce" role="img">
+            <InstagramLogo />
+          </span>
+        </div>
       </div>
       <div className="footer-legal"><span>© 2026 ACCELERATE POLAND</span><span>Inicjatywa na rzecz cyfrowego rozwoju Polski</span></div>
     </footer>
