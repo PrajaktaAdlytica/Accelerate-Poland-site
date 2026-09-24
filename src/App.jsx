@@ -62,23 +62,23 @@ const pillarDetails = [
 const pillars = pillarDetails.map(({ name }) => name);
 
 const ecosystemPartnerLogos = [
-  { name: 'SpaceBridge Fund', src: '/assets/logos/partners/spacebridge-fund.png', shape: 'square', cleanup: 'light' },
-  { name: 'Polish-Israeli Chamber of Commerce', src: '/assets/logos/partners/polish-israeli-chamber.png', shape: 'wide' },
-  { name: 'OVHcloud', src: '/assets/logos/partners/ovhcloud.png', shape: 'wide', cleanup: 'light' },
-  { name: 'OpenAI', src: '/assets/logos/partners/openai.png', shape: 'wide' },
-  { name: 'NVIDIA', src: '/assets/logos/partners/nvidia.png', shape: 'square' },
-  { name: 'Mazowiecki Klaster ICT', src: '/assets/logos/partners/mazowiecki-klaster-ict.png', shape: 'wide', cleanup: 'dark' },
-  { name: 'Instytut PPP', src: '/assets/logos/partners/instytut-ppp.jpg', shape: 'square', cleanup: 'dark' },
-  { name: 'IBM', src: '/assets/logos/partners/ibm.jpg', shape: 'wide', cleanup: 'light' },
-  { name: 'Odra Ventures', src: '/assets/logos/partners/odra-ventures.png', shape: 'wide', preserveNegative: true },
-  { name: 'Google', src: '/assets/logos/partners/google.png', shape: 'square', cleanup: 'dark' },
-  { name: 'DGA', src: '/assets/logos/partners/dga.jpeg', shape: 'square', cleanup: 'light' },
-  { name: 'Claude', src: '/assets/logos/partners/claude.png', shape: 'wide', cleanup: 'light' },
-  { name: 'Anthropic', src: '/assets/logos/partners/anthropic.png', shape: 'wide' },
-  { name: 'Amazon Web Services', src: '/assets/logos/partners/aws.png', shape: 'wide' },
-  { name: 'Forbes Business Council', src: '/assets/logos/partners/forbes-business-council.png', shape: 'square', cleanup: 'dark-strong' },
-  { name: 'Microsoft', src: '/assets/logos/partners/microsoft.png', shape: 'wide', cleanup: 'light' },
-  { name: 'G Venture Capital', src: '/assets/logos/partners/g-venture-capital.png', shape: 'wide', cleanup: 'light' },
+  { name: 'SpaceBridge Fund', src: '/assets/logos/partners/spacebridge-fund.png', shape: 'square', cleanup: 'light', scale: 1.25 },
+  { name: 'Polish-Israeli Chamber of Commerce', src: '/assets/logos/partners/polish-israeli-chamber.png', shape: 'wide', scale: .58 },
+  { name: 'OVHcloud', src: '/assets/logos/partners/ovhcloud.png', shape: 'wide', cleanup: 'light', scale: 1.58 },
+  { name: 'OpenAI', src: '/assets/logos/partners/openai.png', shape: 'wide', scale: 1.08 },
+  { name: 'NVIDIA', src: '/assets/logos/partners/nvidia.png', shape: 'square', scale: .68 },
+  { name: 'Mazowiecki Klaster ICT', src: '/assets/logos/partners/mazowiecki-klaster-ict.png', shape: 'wide', cleanup: 'dark', scale: 2.2 },
+  { name: 'Instytut PPP', src: '/assets/logos/partners/instytut-ppp.jpg', shape: 'square', cleanup: 'dark', scale: .66 },
+  { name: 'IBM', src: '/assets/logos/partners/ibm.jpg', shape: 'wide', cleanup: 'light', scale: 1.12 },
+  { name: 'Odra Ventures', src: '/assets/logos/partners/odra-ventures.png', shape: 'wide', preserveNegative: true, scale: 1.78 },
+  { name: 'Google', src: '/assets/logos/partners/google.png', shape: 'square', cleanup: 'dark', scale: 1.34 },
+  { name: 'DGA', src: '/assets/logos/partners/dga.jpeg', shape: 'square', cleanup: 'light', scale: 1.24 },
+  { name: 'Claude', src: '/assets/logos/partners/claude.png', shape: 'wide', cleanup: 'light', scale: 1.76 },
+  { name: 'Anthropic', src: '/assets/logos/partners/anthropic.png', shape: 'wide', scale: 2.1 },
+  { name: 'Amazon Web Services', src: '/assets/logos/partners/aws.png', shape: 'wide', scale: .62 },
+  { name: 'Forbes Business Council', src: '/assets/logos/partners/forbes-business-council.png', shape: 'square', cleanup: 'dark-strong', scale: 1.25 },
+  { name: 'Microsoft', src: '/assets/logos/partners/microsoft.png', shape: 'wide', cleanup: 'light', scale: 1.32 },
+  { name: 'G Venture Capital', src: '/assets/logos/partners/g-venture-capital.png', shape: 'wide', cleanup: 'light', scale: .66 },
 ];
 
 function PartnerLogoAsset({ name, src, shape, cleanup, preserveNegative, decorative }) {
@@ -822,8 +822,8 @@ function PartnersPage() {
           <div className="partners-logo-band__track">
             {[0, 1].map((groupIndex) => (
               <div className="partners-logo-band__group" aria-hidden={groupIndex === 1} key={groupIndex}>
-                {ecosystemPartnerLogos.map(({ name, src, shape, cleanup, preserveNegative }) => (
-                  <figure className={`partners-logo-band__item partners-logo-band__item--${shape}`} key={`${groupIndex}-${name}`}>
+                {ecosystemPartnerLogos.map(({ name, src, shape, cleanup, preserveNegative, scale }) => (
+                  <figure className={`partners-logo-band__item partners-logo-band__item--${shape}`} style={{ '--logo-scale': scale }} key={`${groupIndex}-${name}`}>
                     <PartnerLogoAsset name={name} src={src} shape={shape} cleanup={cleanup} preserveNegative={preserveNegative} decorative={groupIndex === 1} />
                   </figure>
                 ))}
