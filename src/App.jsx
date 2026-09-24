@@ -92,6 +92,31 @@ function PartnerLogoAsset({ name, src, shape, cleanup, preserveNegative, decorat
   );
 }
 
+function TextRoll({ children }) {
+  let characterIndex = 0;
+
+  return (
+    <span className="text-roll" aria-label={children}>
+      {children.split(' ').map((word, wordIndex, words) => (
+        <span className="text-roll__word" aria-hidden="true" key={`${word}-${wordIndex}`}>
+          {Array.from(word).map((character) => {
+            const index = characterIndex++;
+            return (
+              <span className="text-roll__character" style={{ '--character-index': index }} key={`${character}-${index}`}>
+                <span className="text-roll__glyphs">
+                  <span>{character}</span>
+                  <span>{character}</span>
+                </span>
+              </span>
+            );
+          })}
+          {wordIndex < words.length - 1 && <span className="text-roll__space">&nbsp;</span>}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 const programmes = [
   {
     index: '01',
@@ -800,7 +825,7 @@ function PartnersPage() {
 
       <section className="partners-logo-band" aria-labelledby="partners-logo-band-title">
         <div className="partners-logo-band__heading" data-reveal="up">
-          <h2 id="partners-logo-band-title">Partnerzy ekosystemu</h2>
+          <h2 id="partners-logo-band-title"><TextRoll>Partnerzy ekosystemu</TextRoll></h2>
         </div>
         <svg className="partners-logo-band__filters" aria-hidden="true">
           <defs>

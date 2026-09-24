@@ -516,6 +516,12 @@ h2 em { color: var(--red); font-style: normal; }
 .partners-logo-band { overflow: hidden; background: white; border-top: 1px solid var(--grey-200); border-bottom: 1px solid var(--grey-200); }
 .partners-logo-band__heading { max-width: var(--container); margin-inline: auto; padding: clamp(62px, 6vw, 96px) var(--page-x) clamp(12px, 1.6vw, 24px); }
 .partners-logo-band__heading h2 { max-width: 820px; font-size: clamp(42px, 4.25vw, 68px); font-weight: 450; line-height: .98; letter-spacing: -.055em; text-transform: none; }
+.text-roll { display: inline-flex; flex-wrap: wrap; }
+.text-roll__word { display: inline-flex; white-space: nowrap; }
+.text-roll__character { display: inline-block; height: .98em; overflow: hidden; vertical-align: top; }
+.text-roll__glyphs { display: flex; flex-direction: column; line-height: .98; transform: translateY(0); animation: text-roll-cycle 6.4s var(--ease-out) infinite; animation-delay: calc(var(--character-index) * 38ms); will-change: transform; }
+.text-roll__glyphs > span { height: .98em; display: block; }
+.text-roll__space { display: inline-block; width: .24em; }
 .partners-logo-band__filters { width: 0; height: 0; position: absolute; overflow: hidden; }
 .partners-logo-band__viewport { overflow: hidden; padding: 30px 0 42px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
 .partners-logo-band__track { width: max-content; display: flex; animation: partners-logo-loop 52s linear infinite; will-change: transform; }
@@ -530,6 +536,12 @@ h2 em { color: var(--red); font-style: normal; }
 
 @keyframes partners-logo-loop {
   to { transform: translateX(-50%); }
+}
+
+@keyframes text-roll-cycle {
+  0%, 7% { transform: translateY(0); }
+  17%, 78% { transform: translateY(-50%); }
+  78.01%, 100% { transform: translateY(0); }
 }
 
 .partners-page-cta { max-width: none; margin: 0; display: grid; grid-template-columns: 1fr .82fr; gap: 9vw; align-items: end; color: white; background-color: var(--graphite); background-image: url('/assets/patterns/03-data-rail.png'); background-position: center; background-size: 500px; background-blend-mode: multiply; }
@@ -1052,4 +1064,5 @@ footer { padding: 0; color: white; background: var(--ink); }
   .partners-logo-band__viewport { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
   .partners-logo-band__track { transform: none !important; }
   .partners-logo-band__group:nth-child(2) { display: none; }
+  .text-roll__glyphs { animation: none !important; transform: none !important; }
 }
