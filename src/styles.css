@@ -523,6 +523,7 @@ h2 em { color: var(--red); font-style: normal; }
 .partners-logo-band__item--square { width: clamp(90px, 7.2vw, 124px); }
 .partners-logo-band__item img, .partners-logo-band__item svg { width: 100%; max-width: 100%; height: 68px; object-fit: contain; opacity: .48; transition: opacity .3s ease; }
 .partners-logo-band__item img { filter: brightness(0); }
+.partners-logo-band__item img.partners-logo-band__preserve-negative { filter: grayscale(1) contrast(1.06); }
 .partners-logo-band__item:hover img, .partners-logo-band__item:hover svg { opacity: .9; }
 
 @keyframes partners-logo-loop {

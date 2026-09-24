@@ -70,7 +70,7 @@ const ecosystemPartnerLogos = [
   { name: 'Mazowiecki Klaster ICT', src: '/assets/logos/partners/mazowiecki-klaster-ict.png', shape: 'wide', cleanup: 'dark' },
   { name: 'Instytut PPP', src: '/assets/logos/partners/instytut-ppp.jpg', shape: 'square', cleanup: 'dark' },
   { name: 'IBM', src: '/assets/logos/partners/ibm.jpg', shape: 'wide', cleanup: 'light' },
-  { name: 'Odra Ventures', src: '/assets/logos/partners/odra-ventures.png', shape: 'wide' },
+  { name: 'Odra Ventures', src: '/assets/logos/partners/odra-ventures.png', shape: 'wide', preserveNegative: true },
   { name: 'Google', src: '/assets/logos/partners/google.png', shape: 'square', cleanup: 'dark' },
   { name: 'DGA', src: '/assets/logos/partners/dga.jpeg', shape: 'square', cleanup: 'light' },
   { name: 'Claude', src: '/assets/logos/partners/claude.png', shape: 'wide', cleanup: 'light' },
@@ -81,8 +81,8 @@ const ecosystemPartnerLogos = [
   { name: 'G Venture Capital', src: '/assets/logos/partners/g-venture-capital.png', shape: 'wide', cleanup: 'light' },
 ];
 
-function PartnerLogoAsset({ name, src, shape, cleanup, decorative }) {
-  if (!cleanup) return <img src={src} alt={decorative ? '' : name} loading="lazy" decoding="async" />;
+function PartnerLogoAsset({ name, src, shape, cleanup, preserveNegative, decorative }) {
+  if (!cleanup) return <img className={preserveNegative ? 'partners-logo-band__preserve-negative' : undefined} src={src} alt={decorative ? '' : name} loading="lazy" decoding="async" />;
 
   const square = shape === 'square';
   return (
@@ -819,9 +819,9 @@ function PartnersPage() {
           <div className="partners-logo-band__track">
             {[0, 1].map((groupIndex) => (
               <div className="partners-logo-band__group" aria-hidden={groupIndex === 1} key={groupIndex}>
-                {ecosystemPartnerLogos.map(({ name, src, shape, cleanup }) => (
+                {ecosystemPartnerLogos.map(({ name, src, shape, cleanup, preserveNegative }) => (
                   <figure className={`partners-logo-band__item partners-logo-band__item--${shape}`} key={`${groupIndex}-${name}`}>
-                    <PartnerLogoAsset name={name} src={src} shape={shape} cleanup={cleanup} decorative={groupIndex === 1} />
+                    <PartnerLogoAsset name={name} src={src} shape={shape} cleanup={cleanup} preserveNegative={preserveNegative} decorative={groupIndex === 1} />
                   </figure>
                 ))}
               </div>
