@@ -798,7 +798,10 @@ function PartnersPage() {
         </div>
       </section>
 
-      <section className="partners-logo-band" aria-label="Partnerzy ekosystemu">
+      <section className="partners-logo-band" aria-labelledby="partners-logo-band-title">
+        <div className="partners-logo-band__heading" data-reveal="up">
+          <h2 id="partners-logo-band-title">Partnerzy ekosystemu</h2>
+        </div>
         <svg className="partners-logo-band__filters" aria-hidden="true">
           <defs>
             <filter id="partner-logo-light-background" colorInterpolationFilters="sRGB">
