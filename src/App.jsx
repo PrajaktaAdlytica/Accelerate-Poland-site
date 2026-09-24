@@ -787,11 +787,7 @@ function PartnersPage() {
         </div>
       </section>
 
-      <section className="partners-logo-band" aria-labelledby="partners-logo-band-title">
-        <div className="partners-logo-band__heading" data-reveal="up">
-          <p id="partners-logo-band-title">Partnerzy ekosystemu</p>
-          <span>Technologia · biznes · wiedza · kapitał</span>
-        </div>
+      <section className="partners-logo-band" aria-label="Partnerzy ekosystemu">
         <div className="partners-logo-band__viewport">
           <div className="partners-logo-band__track">
             {[0, 1].map((groupIndex) => (
