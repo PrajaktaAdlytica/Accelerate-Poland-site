@@ -62,24 +62,35 @@ const pillarDetails = [
 const pillars = pillarDetails.map(({ name }) => name);
 
 const ecosystemPartnerLogos = [
-  { name: 'SpaceBridge Fund', src: '/assets/logos/partners/spacebridge-fund.png', shape: 'square' },
+  { name: 'SpaceBridge Fund', src: '/assets/logos/partners/spacebridge-fund.png', shape: 'square', cleanup: 'light' },
   { name: 'Polish-Israeli Chamber of Commerce', src: '/assets/logos/partners/polish-israeli-chamber.png', shape: 'wide' },
-  { name: 'OVHcloud', src: '/assets/logos/partners/ovhcloud.png', shape: 'wide' },
+  { name: 'OVHcloud', src: '/assets/logos/partners/ovhcloud.png', shape: 'wide', cleanup: 'light' },
   { name: 'OpenAI', src: '/assets/logos/partners/openai.png', shape: 'wide' },
   { name: 'NVIDIA', src: '/assets/logos/partners/nvidia.png', shape: 'square' },
-  { name: 'Mazowiecki Klaster ICT', src: '/assets/logos/partners/mazowiecki-klaster-ict.png', shape: 'wide' },
-  { name: 'Instytut PPP', src: '/assets/logos/partners/instytut-ppp.jpg', shape: 'square' },
-  { name: 'IBM', src: '/assets/logos/partners/ibm.jpg', shape: 'wide' },
+  { name: 'Mazowiecki Klaster ICT', src: '/assets/logos/partners/mazowiecki-klaster-ict.png', shape: 'wide', cleanup: 'dark' },
+  { name: 'Instytut PPP', src: '/assets/logos/partners/instytut-ppp.jpg', shape: 'square', cleanup: 'dark' },
+  { name: 'IBM', src: '/assets/logos/partners/ibm.jpg', shape: 'wide', cleanup: 'light' },
   { name: 'Odra Ventures', src: '/assets/logos/partners/odra-ventures.png', shape: 'wide' },
-  { name: 'Google', src: '/assets/logos/partners/google.png', shape: 'square' },
-  { name: 'DGA', src: '/assets/logos/partners/dga.jpeg', shape: 'square' },
-  { name: 'Claude', src: '/assets/logos/partners/claude.png', shape: 'wide' },
+  { name: 'Google', src: '/assets/logos/partners/google.png', shape: 'square', cleanup: 'dark' },
+  { name: 'DGA', src: '/assets/logos/partners/dga.jpeg', shape: 'square', cleanup: 'light' },
+  { name: 'Claude', src: '/assets/logos/partners/claude.png', shape: 'wide', cleanup: 'light' },
   { name: 'Anthropic', src: '/assets/logos/partners/anthropic.png', shape: 'wide' },
   { name: 'Amazon Web Services', src: '/assets/logos/partners/aws.png', shape: 'wide' },
-  { name: 'Forbes Business Council', src: '/assets/logos/partners/forbes-business-council.png', shape: 'square' },
-  { name: 'Microsoft', src: '/assets/logos/partners/microsoft.png', shape: 'wide' },
-  { name: 'G Venture Capital', src: '/assets/logos/partners/g-venture-capital.png', shape: 'wide' },
+  { name: 'Forbes Business Council', src: '/assets/logos/partners/forbes-business-council.png', shape: 'square', cleanup: 'dark-strong' },
+  { name: 'Microsoft', src: '/assets/logos/partners/microsoft.png', shape: 'wide', cleanup: 'light' },
+  { name: 'G Venture Capital', src: '/assets/logos/partners/g-venture-capital.png', shape: 'wide', cleanup: 'light' },
 ];
+
+function PartnerLogoAsset({ name, src, shape, cleanup, decorative }) {
+  if (!cleanup) return <img src={src} alt={decorative ? '' : name} loading="lazy" decoding="async" />;
+
+  const square = shape === 'square';
+  return (
+    <svg viewBox={square ? '0 0 100 100' : '0 0 300 100'} role={decorative ? undefined : 'img'} aria-label={decorative ? undefined : name} aria-hidden={decorative || undefined}>
+      <image href={src} width={square ? '100' : '300'} height="100" preserveAspectRatio="xMidYMid meet" filter={`url(#partner-logo-${cleanup}-background)`} />
+    </svg>
+  );
+}
 
 const programmes = [
   {
@@ -788,13 +799,29 @@ function PartnersPage() {
       </section>
 
       <section className="partners-logo-band" aria-label="Partnerzy ekosystemu">
+        <svg className="partners-logo-band__filters" aria-hidden="true">
+          <defs>
+            <filter id="partner-logo-light-background" colorInterpolationFilters="sRGB">
+              <feColorMatrix type="matrix" values="0 0 0 0 .12  0 0 0 0 .12  0 0 0 0 .12  -.2126 -.7152 -.0722 1 0" />
+              <feComponentTransfer><feFuncA type="linear" slope="1.55" intercept="-.08" /></feComponentTransfer>
+            </filter>
+            <filter id="partner-logo-dark-background" colorInterpolationFilters="sRGB">
+              <feColorMatrix type="matrix" values="0 0 0 0 .12  0 0 0 0 .12  0 0 0 0 .12  .2126 .7152 .0722 0 0" />
+              <feComponentTransfer><feFuncA type="linear" slope="2" intercept="-.38" /></feComponentTransfer>
+            </filter>
+            <filter id="partner-logo-dark-strong-background" colorInterpolationFilters="sRGB">
+              <feColorMatrix type="matrix" values="0 0 0 0 .12  0 0 0 0 .12  0 0 0 0 .12  .2126 .7152 .0722 0 0" />
+              <feComponentTransfer><feFuncA type="linear" slope="2.2" intercept="-.7" /></feComponentTransfer>
+            </filter>
+          </defs>
+        </svg>
         <div className="partners-logo-band__viewport">
           <div className="partners-logo-band__track">
             {[0, 1].map((groupIndex) => (
               <div className="partners-logo-band__group" aria-hidden={groupIndex === 1} key={groupIndex}>
-                {ecosystemPartnerLogos.map(({ name, src, shape }) => (
+                {ecosystemPartnerLogos.map(({ name, src, shape, cleanup }) => (
                   <figure className={`partners-logo-band__item partners-logo-band__item--${shape}`} key={`${groupIndex}-${name}`}>
-                    <img src={src} alt={groupIndex === 0 ? name : ''} loading="lazy" decoding="async" />
+                    <PartnerLogoAsset name={name} src={src} shape={shape} cleanup={cleanup} decorative={groupIndex === 1} />
                   </figure>
                 ))}
               </div>

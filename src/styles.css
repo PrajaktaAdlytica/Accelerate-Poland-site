@@ -514,14 +514,16 @@ h2 em { color: var(--red); font-style: normal; }
 .partners-page-categories__grid article:hover > svg { opacity: 1; transform: none; }
 
 .partners-logo-band { overflow: hidden; background: white; border-top: 1px solid var(--grey-200); border-bottom: 1px solid var(--grey-200); }
+.partners-logo-band__filters { width: 0; height: 0; position: absolute; overflow: hidden; }
 .partners-logo-band__viewport { overflow: hidden; padding: 34px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
 .partners-logo-band__track { width: max-content; display: flex; animation: partners-logo-loop 52s linear infinite; will-change: transform; }
 .partners-logo-band__viewport:hover .partners-logo-band__track { animation-play-state: paused; }
 .partners-logo-band__group { flex: none; display: flex; align-items: center; gap: clamp(48px, 5.2vw, 92px); padding-right: clamp(48px, 5.2vw, 92px); }
 .partners-logo-band__item { width: clamp(145px, 12vw, 205px); height: 84px; flex: none; display: grid; place-items: center; }
 .partners-logo-band__item--square { width: clamp(90px, 7.2vw, 124px); }
-.partners-logo-band__item img { max-width: 100%; max-height: 68px; object-fit: contain; filter: grayscale(1) contrast(.78); mix-blend-mode: multiply; opacity: .52; transition: opacity .3s ease, filter .3s ease; }
-.partners-logo-band__item:hover img { filter: grayscale(1) contrast(1.18); opacity: .92; }
+.partners-logo-band__item img, .partners-logo-band__item svg { width: 100%; max-width: 100%; height: 68px; object-fit: contain; opacity: .48; transition: opacity .3s ease; }
+.partners-logo-band__item img { filter: brightness(0); }
+.partners-logo-band__item:hover img, .partners-logo-band__item:hover svg { opacity: .9; }
 
 @keyframes partners-logo-loop {
   to { transform: translateX(-50%); }
@@ -1033,7 +1035,7 @@ footer { padding: 0; color: white; background: var(--ink); }
   .partners-logo-band__group { gap: 44px; padding-right: 44px; }
   .partners-logo-band__item { width: 150px; height: 72px; }
   .partners-logo-band__item--square { width: 88px; }
-  .partners-logo-band__item img { max-height: 58px; }
+  .partners-logo-band__item img, .partners-logo-band__item svg { height: 58px; }
   .partners-page-cta { padding-inline: 20px; }
   .partners-page-cta__actions > div { flex-direction: column; }
 }
