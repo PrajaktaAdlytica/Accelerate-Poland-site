@@ -92,11 +92,11 @@ function PartnerLogoAsset({ name, src, shape, cleanup, preserveNegative, decorat
   );
 }
 
-function TextRoll({ children }) {
+function TextRoll({ children, active = false }) {
   let characterIndex = 0;
 
   return (
-    <span className="text-roll" aria-label={children}>
+    <span className={`text-roll${active ? ' text-roll--active' : ''}`} aria-label={children}>
       {children.split(' ').map((word, wordIndex, words) => (
         <span className="text-roll__word" aria-hidden="true" key={`${word}-${wordIndex}`}>
           {Array.from(word).map((character) => {
@@ -754,12 +754,28 @@ function Partners() {
 
 function PartnersPage() {
   const countRef = useRef(null);
+  const logoBandRef = useRef(null);
+  const [logoHeadingActive, setLogoHeadingActive] = useState(false);
   const categories = [
     { index: '01', title: 'Technologiczni', copy: 'Firmy technologiczne i dostawcy zaawansowanych rozwiązań cyfrowych.', Icon: Cpu },
     { index: '02', title: 'Merytoryczni', copy: 'Inkubatory, akceleratory i organizacje wspierające innowacje i przedsiębiorczość.', Icon: Network },
     { index: '03', title: 'Gospodarczy', copy: 'Izby gospodarcze, organizacje biznesowe i instytucje wspierające współpracę międzynarodową.', Icon: Briefcase },
     { index: '04', title: 'Medialni', copy: 'Instytucje medialne wspierające ogólnopolski oraz międzynarodowy zasięg inicjatywy.', Icon: EnvelopeSimple },
   ];
+
+  useEffect(() => {
+    const element = logoBandRef.current;
+    if (!element || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setLogoHeadingActive(true);
+      observer.disconnect();
+    }, { threshold: 0.3 });
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const element = countRef.current;
@@ -823,9 +839,9 @@ function PartnersPage() {
         </div>
       </section>
 
-      <section className="partners-logo-band" aria-labelledby="partners-logo-band-title">
-        <div className="partners-logo-band__heading" data-reveal="up">
-          <h2 id="partners-logo-band-title"><TextRoll>Partnerzy ekosystemu</TextRoll></h2>
+      <section className="partners-logo-band" ref={logoBandRef} aria-labelledby="partners-logo-band-title">
+        <div className="partners-logo-band__heading">
+          <h2 id="partners-logo-band-title"><TextRoll active={logoHeadingActive}>Partnerzy ekosystemu</TextRoll></h2>
         </div>
         <svg className="partners-logo-band__filters" aria-hidden="true">
           <defs>
@@ -948,7 +964,7 @@ export function App() {
         .fromTo('[data-hero="intro"]', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, stagger: 0.08 }, 0.52)
         .fromTo('[data-hero="mosaic"]', { x: 34, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9 }, 0.28);
 
-      const pageSections = gsap.utils.toArray('main > section:not(.hero):not(.initiative-page-hero):not(.programmes-page-hero):not(.acceleration-page-hero):not(.partners-page-hero)');
+      const pageSections = gsap.utils.toArray('main > section:not(.hero):not(.initiative-page-hero):not(.programmes-page-hero):not(.acceleration-page-hero):not(.partners-page-hero):not(.partners-logo-band)');
       pageSections.forEach((section, index) => {
         const offset = (window.innerWidth <= 680 ? 38 : 76) * (index % 2 === 0 ? -1 : 1);
         const revealSection = () => gsap.fromTo(section, { x: offset, opacity: 0 }, { x: 0, opacity: 1, duration: 0.92, ease: 'power3.out', overwrite: true, force3D: true });
