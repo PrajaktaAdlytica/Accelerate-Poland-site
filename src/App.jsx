@@ -703,7 +703,7 @@ function Partners() {
   const categories = [
     ['01', 'Technologiczni', 'Firmy technologiczne i dostawcy zaawansowanych rozwiązań cyfrowych.'],
     ['02', 'Merytoryczni', 'Inkubatory, akceleratory i organizacje wspierające innowacje.'],
-    ['03', 'Gospodarczy', 'Izby gospodarcze, organizacje biznesowe i instytucje współpracy.'],
+    ['03', 'Gospodarczy', 'Izby gospodarcze, organizacje biznesowe i instytucje międzynarodowe.'],
     ['04', 'Medialni', 'Instytucje wspierające ogólnopolski i międzynarodowy zasięg inicjatywy.'],
   ];
 
@@ -759,7 +759,7 @@ function PartnersPage() {
   const categories = [
     { index: '01', title: 'Technologiczni', copy: 'Firmy technologiczne i dostawcy zaawansowanych rozwiązań cyfrowych.', Icon: Cpu },
     { index: '02', title: 'Merytoryczni', copy: 'Inkubatory, akceleratory i organizacje wspierające innowacje i przedsiębiorczość.', Icon: Network },
-    { index: '03', title: 'Gospodarczy', copy: 'Izby gospodarcze, organizacje biznesowe i instytucje wspierające współpracę międzynarodową.', Icon: Briefcase },
+    { index: '03', title: 'Gospodarczy', copy: 'Izby gospodarcze, organizacje biznesowe i instytucje międzynarodowe.', Icon: Briefcase },
     { index: '04', title: 'Medialni', copy: 'Instytucje medialne wspierające ogólnopolski oraz międzynarodowy zasięg inicjatywy.', Icon: EnvelopeSimple },
   ];
 
