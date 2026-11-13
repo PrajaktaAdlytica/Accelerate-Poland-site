@@ -891,7 +891,7 @@ function Contact() {
         <SectionLabel number="07" light>Kontakt</SectionLabel>
         <h2>Współtwórz cyfrowy<br />rozwój <em>Polski.</em></h2>
         <p>Zapraszamy przedstawicieli administracji publicznej, przedsiębiorstw, startupów, nauki, inwestorów i partnerów technologicznych.</p>
-        <a href="mailto:kontakt@acceleratepoland.pl">kontakt@acceleratepoland.pl <ArrowUpRight weight="bold" /></a>
+        <a href="mailto:contact@acceleratepoland.org">contact@acceleratepoland.org <ArrowUpRight weight="bold" /></a>
       </div>
       <form className="contact-form" onSubmit={submit} data-reveal="right">
         <div className="form-row"><label>Imię i nazwisko<input required name="name" autoComplete="name" /></label><label>Organizacja<input required name="company" autoComplete="organization" /></label></div>
